@@ -2,7 +2,7 @@ package api.payload;
 
 public class User {
     int  id;
-          String   username;
+    String   username;
     String firstName;
     String  lastName;
     String   email;

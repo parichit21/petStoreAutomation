@@ -7,7 +7,7 @@ POST create user ---->https://petstore.swagger.io/v2/user
 GET user ------->     https://petstore.swagger.io/user/{username}
 PUT request update user----->https://petstore.swagger.io/v2/user/{username}
 Delete user Delete Request --->https://petstore.swagger.io/v2/user/{username}
-        */
+ */
 
 public class Routes {
 
