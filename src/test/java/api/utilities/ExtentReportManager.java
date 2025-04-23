@@ -6,12 +6,13 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.testng.ITestContext;
+import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ExtentReportManager {
+public class ExtentReportManager implements ITestListener {
     public ExtentSparkReporter sparkReporter;
     public ExtentReports extent;
     public ExtentTest test;
@@ -35,7 +36,7 @@ public class ExtentReportManager {
         extent.setSystemInfo("Operating System", System.getProperty("os.name"));
         extent.setSystemInfo("User Name", System.getProperty("user.name"));
         extent.setSystemInfo("Environemnt","QA");
-        extent.setSystemInfo("user","pavan");
+        extent.setSystemInfo("user","Parichit");
     }
 
 
