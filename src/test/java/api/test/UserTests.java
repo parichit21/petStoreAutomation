@@ -12,6 +12,7 @@ public class UserTests {
     Faker faker;
     User userPayload;
 
+
     @BeforeClass
     public void setUpdata(){
             faker = new Faker();
