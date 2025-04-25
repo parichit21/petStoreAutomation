@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-   <listeners>
-<listener class-name="api.utilities.ExtentReportManager"/>
+    <listeners>
+        <listener class-name="api.utilities.ExtentReportManager"/>
+    </listeners>
 
-   </listeners>
-    <test  thread-count="5" name="PetTests">
+    <test  thread-count="5" name="PetStoreAutomation">
         <classes>
-            <class name="api.test.DataDrivenTest"/>
-            <class name="api.test.UserTests"/>
+            <class name="api.test.DataDrivenTest">
+                <methods>
+                    <include name="TestPostUSer"/>
+                    <include name="TestDeleteUSer"/>
+                </methods>
+            </class>
+            <class name="api.test.OrderTest">
+                <methods>
+                    <include name="TestGetorder"/>
+                    <include name="TestPostOrder"/>
+                    <include name="TestGetUserByID"/>
+                    <include name="DeleteUserID"/>
+                </methods>
+            </class>
+            <class name="api.test.UserTests">
+                <methods>
+                    <include name="TestPostUSer"/>
+                    <include name="TestGetUserByName"/>
+                    <include name="testUpdateUserByName"/>
+                    <include name="testDeleteUserByName"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

@@ -1,5 +1,6 @@
 package api.test;
 
+import api.RetryLogic.RetryAnalyzer;
 import api.endpoints.OrderEndPoints;
 import api.payload.Order;
 import com.github.javafaker.Faker;
@@ -24,13 +25,13 @@ public class OrderTest {
         faker = new Faker();
         orderPayload = new Order();
 
-        orderPayload.setId(faker.idNumber().hashCode());
-        orderPayload.setPetid(faker.idNumber().hashCode());
+        orderPayload.setId(faker.number().numberBetween(0,9));
+        orderPayload.setPetid(faker.number().numberBetween(0,9));
         orderPayload.setQuantity(faker.number().randomDigitNotZero());
         orderPayload.setShipDatee(faker.date().toString());
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1, retryAnalyzer = RetryAnalyzer.class)
     public void TestGetorder(){
         Response res = OrderEndPoints.GetInventory(this.orderPayload);
                 res
@@ -39,7 +40,28 @@ public class OrderTest {
         Assert.assertEquals(res.getStatusCode(),200);
     }
 
+    @Test(priority = 2, retryAnalyzer = RetryAnalyzer.class)
+public void TestPostOrder(){
+        Response res = OrderEndPoints.Postorder(this.orderPayload);
+        res.then()
+                .log().all();
+        Assert.assertEquals(res.getStatusCode(),200);
+    }
+        @Test(priority = 3, retryAnalyzer = RetryAnalyzer.class)
+    public void TestGetUserByID(){
+        Response res = OrderEndPoints.GetOrderId(this.orderPayload.getPetid());
+        res.then()
+                .log().all();
+        Assert.assertEquals(res.getStatusCode(),200);
+        }
 
+        @Test(priority = 4, retryAnalyzer = RetryAnalyzer.class)
+        public void DeleteUserID(){
+Response res = OrderEndPoints.deleteByID(this.orderPayload.getPetid());
+            res.then()
+                    .log().all();
+            Assert.assertEquals(res.getStatusCode(),200,"deleted");
 
+        }
 
 }

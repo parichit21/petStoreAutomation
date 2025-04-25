@@ -36,22 +36,22 @@ return response;
       return response;
     }
 
-    public static Response GetOrgerId(int petid){
+    public static Response GetOrderId(int petid){
         String GETOrderId_URL = getUser().getString("Get_UserByID");
 
        Response response =  given()
-                      .pathParams("petid",petid)
+                      .pathParams("orderId",petid)
                         .when()
                         .get(GETOrderId_URL);
        return response;
 
     }
 
-    public static Response deleteByID(int id ){
+    public static Response deleteByID(int petid ){
         String DeleteOrder_URL = getUser().getString("Delete_URL");
 
         Response response =  given()
-                .pathParams("id", id)
+                .pathParams("orderId", petid)
                         .when()
                        .delete(DeleteOrder_URL);
        return response;

@@ -1,5 +1,6 @@
 package api.test;
 
+import api.RetryLogic.RetryAnalyzer;
 import api.endpoints.UserEndPoints;
 import api.payload.User;
 import com.github.javafaker.Faker;
@@ -36,21 +37,21 @@ public class UserTests {
         userPayload.setPhone(faker.phoneNumber().cellPhone());
 
     }
-    @Test(priority = 1)
+    @Test(priority = 1, retryAnalyzer = RetryAnalyzer.class)
    public void  TestPostUSer(){
        Response res =  UserEndPoints.createUser(userPayload);
             res.then().log().all();
         Assert.assertEquals(res.getStatusCode(),200);
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, retryAnalyzer = RetryAnalyzer.class)
     public void TestGetUserByName(){
         Response res = UserEndPoints.ReadUser(this.userPayload.getUsername());
         res.then().log().all();
         Assert.assertEquals(res.getStatusCode(),200);
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, retryAnalyzer = RetryAnalyzer.class)
     public void testUpdateUserByName(){
 
         userPayload.setFirstName(faker.name().firstName());
@@ -64,7 +65,7 @@ public class UserTests {
         Assert.assertEquals(responseAfterUpdate.getStatusCode(),200);
     }
 
-    @Test(priority = 4)
+    @Test(priority = 4, retryAnalyzer = RetryAnalyzer.class)
     public void testDeleteUserByName(){
        Response res =  UserEndPoints.deleteUser(this.userPayload.getUsername());
        Assert.assertEquals(res.getStatusCode(),200);
