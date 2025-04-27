@@ -1,7 +1,5 @@
 package api.payload;
 
-import jdk.tools.jlink.internal.plugins.StripNativeCommandsPlugin;
-
 import java.util.List;
 
 public class Pet {

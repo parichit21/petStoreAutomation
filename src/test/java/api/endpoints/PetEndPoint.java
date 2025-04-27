@@ -20,20 +20,23 @@ public class PetEndPoint {
     public static Response findPetByID(int petid){
         String GET_URL = getUser().getString("pet_GET_ByID");
                 Response response =  given()
+                        .contentType(ContentType.JSON)
+                        .accept(ContentType.JSON)
+                        .pathParams("petId",petid)
                          .when()
                          .get(GET_URL);
                 return response;
     }
 
-public static Response updateByPetId(int id , Pet petPayload){
+public static Response updateByPetId(int id,Pet petPayload){
     String updare_URL = getUser().getString("pet_POSTUpdateByID");
         Response response =     given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .pathParams("petId",id)
                 .body(petPayload)
-                    .when()
-                    .get(updare_URL);
+                .pathParams("petId",id)
+                .when()
+                    .post(updare_URL);
             return response;
 }
 
@@ -60,7 +63,8 @@ public static Response updatePetRecord(Pet payload){
     public static Response GetByStatus(String status){
         String Get_URL =  getUser().getString("pet_GETByStatus");
         Response response= given()
-                .queryParam("status", "available","pending","sold")
+                .queryParam("status", status)
+                .accept(ContentType.JSON)
                         .when()
                         .get(Get_URL);
 
