@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
@@ -80,6 +81,8 @@ public void POSTnewEntryTest(){
             Response response = PetEndPoint.GetByStatus(statusToSearch);
 
             response.then().log().all();
+
+
             Assert.assertEquals(response.getStatusCode(), 200, "Status code should be 200 OK");
 
             List<String> allStatuses = response.jsonPath().getList("status");
@@ -105,7 +108,6 @@ public void updateByPetIdTest(){
      category.setId(2);
             petpayload.setCategory(category);
             petpayload.setStatus("sold");
-
             int id =2;
 
             Response response = PetEndPoint.updateByPetId(id,petpayload);
@@ -113,7 +115,27 @@ public void updateByPetIdTest(){
             Assert.assertEquals(response.getStatusCode(), 200, "Status code should be 200 OK");
 
         }
+        @Test(priority = 6)
+        public void delete(){
+              Response response =  PetEndPoint.deletePetRecord(3);
 
+              response.then().log().all();
+              Assert.assertEquals(response.getStatusCode(),200);
+
+            String message = response.jsonPath().getString("message");
+            Assert.assertEquals(message, "2");
+        }
+
+            @Test(priority = 7)
+        public void fileuploadTest(){
+                File file = new File("C://Users//91965//Downloads//PetStoreAutomation//fileUpload.png");  // ✅ Make sure this path is valid
+
+                Response response = PetEndPoint.fileUpload(2,"cute",file);
+                response.then().log().all();
+                String responseBody = response.asString();
+                Assert.assertTrue(responseBody.contains("uploaded") || responseBody.contains("success"),
+                        "Expected success message not found in response.");
+            }
 
 
 

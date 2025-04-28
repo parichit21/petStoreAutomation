@@ -4,6 +4,7 @@ import api.payload.Pet;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
 import static io.restassured.RestAssured.given;
@@ -44,6 +45,7 @@ public static Response deletePetRecord(int id ){
         String delete_URL =  getUser().getString("pet_DELETEByPETID");
        Response response =          given()
                         .pathParams("petId",id)
+              // .header("api_key","")
                 .when()
                 .delete(delete_URL);
                 return response;
@@ -81,6 +83,21 @@ public static Response updatePetRecord(Pet payload){
                                 .when()
                                 .post(POSTnewUser_URL);
                         return response;
+
+    }
+
+    public  static Response fileUpload(int petId, String metadata, File file){
+        String fileuploadUrl = getUser().getString("pet_POSTuploadimage");
+
+                Response response  =        given()
+                                .multiPart("additionalMetadata", metadata)
+                                .pathParams("petId",petId)
+                                .multiPart("file", file)
+                        .contentType("multipart/form-data")
+                                .when()
+                                .post(fileuploadUrl);
+
+                return response;
 
     }
 

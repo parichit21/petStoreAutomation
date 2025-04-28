@@ -5,14 +5,12 @@
         <listener class-name="api.utilities.ExtentReportManager"/>
     </listeners>
 
-    <test  thread-count="5" name="PetStoreAutomation">
+    <test  name="PetStoreAutomation">
         <classes>
             <class name="api.test.DataDrivenTest">
-                <methods>
-                    <include name="TestPostUSer"/>
+                <methods><include name="TestPostUSer"/>
                     <include name="TestDeleteUSer"/>
-                </methods>
-            </class>
+                </methods></class>
             <class name="api.test.OrderTest">
                 <methods>
                     <include name="TestGetorder"/>
@@ -21,12 +19,23 @@
                     <include name="DeleteUserID"/>
                 </methods>
             </class>
+            <class name="api.test.PetTest">
+                <methods>
+                    <include name="POSTnewEntryTest"/>
+                    <include name="updatePetRecordTest"/>
+                    <include name="GetByStatusTest"/>
+                    <include name="findPetByIDTest"/>
+                    <include name="updateByPetIdTest"/>
+                    <include name="delete"/>
+                    <include name="fileuploadTest"/>
+                </methods>
+            </class>
             <class name="api.test.UserTests">
                 <methods>
                     <include name="TestPostUSer"/>
                     <include name="TestGetUserByName"/>
                     <include name="testUpdateUserByName"/>
-                    <include name="testDeleteUserByName"/>
+    <include name="testDeleteUserByName"/>
                 </methods>
             </class>
         </classes>
